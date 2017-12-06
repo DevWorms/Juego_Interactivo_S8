@@ -69,6 +69,12 @@ function scene:show( event )
         title.x = display.contentWidth / 2
         title.y = display.contentHeight / 2
         title.size = display.contentWidth / 10
+        local crono = display.newText(15 -event.time/1000,260,0, native.systemFont, 100)
+        local function manageTime( event )
+             print( event.time/1000 )
+        end
+ 
+        timer.performWithDelay( 1000, manageTime, 0 )
 
         
 
