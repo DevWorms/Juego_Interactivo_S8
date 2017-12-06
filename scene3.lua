@@ -35,9 +35,10 @@ function scene:show( event )
 		title.y = display.contentHeight / 2
         title.size = display.contentWidth / 10
         local goToScene1Btn = self:getObjectByName( "GoToScene1Btn" )
-        goToScene1Btn.x = display.contentWidth - 95
-        goToScene1Btn.y = display.contentHeight - 35
+        goToScene1Btn.x = display.contentWidth/2
+        goToScene1Btn.y = display.contentHeight/2
         local goToScene1Text = self:getObjectByName( "GoToScene1Text" )
+        goToScene1Text.text="Jugar!"
         goToScene1Text.x = display.contentWidth - 92
         goToScene1Text.y = display.contentHeight - 35
     elseif phase == "did" then

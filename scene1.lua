@@ -12,9 +12,9 @@ local composer = require( "composer" )
 local scene = composer.newScene( sceneName )
 local background
 local btnS8
-local posX = {display.contentWidth - 95, 50, 100}
-local posY = {display.contentHeight - 35,50,100}
-
+local posX = {display.contentWidth - 95, 50, 100,200}
+local posY = {display.contentHeight - 35,50,100,200}
+local ganar = 4
 ---------------------------------------------------------------------------------
 
 local nextSceneButton
@@ -31,12 +31,16 @@ local function btnTap(event)
     return true
     end 
 local function cambiaImagen(event)
-    btnS8:addEventListener("destroy",btnS8)
-    contador = contador+1
-    background = display.newImage("images/imagen"..contador..".jpg" )
-    background:translate( display.contentWidth/2, display.contentHeight/2 )
-    btnS8= display.newImage("images/s8.png")
-    btnS8:translate( posX[contador],posY[contador])
+    
+        btnS8:addEventListener("destroy",btnS8)
+        contador = contador+1
+        background = display.newImage("images/imagen"..contador..".jpg" )
+        background:translate( display.contentWidth/2, display.contentHeight/2 )
+        btnS8= display.newImage("images/s8.png")
+        btnS8:translate( posX[contador],posY[contador])
+        
+
+        
     print (contador)
 end
 function scene:create( event )
@@ -46,6 +50,7 @@ function scene:create( event )
     btnS8= display.newImage("images/s8.png")
     btnS8:translate( posX[contador],posY[contador])
     btnS8:addEventListener("tap", cambiaImagen)
+    
         
 
     -- Called when the scene's view does not exist
@@ -64,7 +69,7 @@ function scene:show( event )
         title.x = display.contentWidth / 2
         title.y = display.contentHeight / 2
         title.size = display.contentWidth / 10
-        
+
         
 
 
@@ -90,6 +95,10 @@ function scene:show( event )
         end
         
     end 
+    if contador== ganar then
+            composer.gotoScene( "scene2", { effect = "fade", time = 300 } )
+        end
+        
 end
 
 function scene:hide( event )
