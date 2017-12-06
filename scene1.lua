@@ -12,6 +12,8 @@ local composer = require( "composer" )
 local scene = composer.newScene( sceneName )
 local background
 local btnS8
+local posX = {display.contentWidth - 95, 50, 100}
+local posY = {display.contentHeight - 35,50,100}
 
 ---------------------------------------------------------------------------------
 
@@ -29,11 +31,12 @@ local function btnTap(event)
     return true
     end 
 local function cambiaImagen(event)
+    btnS8:addEventListener("destroy",btnS8)
     contador = contador+1
     background = display.newImage("images/imagen"..contador..".jpg" )
     background:translate( display.contentWidth/2, display.contentHeight/2 )
     btnS8= display.newImage("images/s8.png")
-    btnS8:translate( display.contentWidth - 95,display.contentHeight - 35)
+    btnS8:translate( posX[contador],posY[contador])
     print (contador)
 end
 function scene:create( event )
@@ -41,7 +44,8 @@ function scene:create( event )
     background = display.newImage("images/imagen"..contador..".jpg" )
     background:translate( display.contentWidth/2, display.contentHeight/2 )
     btnS8= display.newImage("images/s8.png")
-    btnS8:translate( display.contentWidth - 95,display.contentHeight - 35)
+    btnS8:translate( posX[contador],posY[contador])
+    btnS8:addEventListener("tap", cambiaImagen)
         
 
     -- Called when the scene's view does not exist
@@ -61,7 +65,7 @@ function scene:show( event )
         title.y = display.contentHeight / 2
         title.size = display.contentWidth / 10
         
-        btnS8:addEventListener("tap", cambiaImagen)
+        
 
 
         
