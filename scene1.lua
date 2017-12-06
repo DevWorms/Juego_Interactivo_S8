@@ -32,13 +32,16 @@ local function cambiaImagen(event)
     contador = contador+1
     background = display.newImage("images/imagen"..contador..".jpg" )
     background:translate( display.contentWidth/2, display.contentHeight/2 )
+    btnS8= display.newImage("images/s8.png")
+    btnS8:translate( display.contentWidth - 95,display.contentHeight - 35)
     print (contador)
 end
 function scene:create( event )
     local sceneGroup = self.view
-    
-    btnS8= display.newImage(sceneGroup, "images/s8.png")
-        btnS8:translate( display.contentWidth - 95,display.contentHeight - 35)
+    background = display.newImage("images/imagen"..contador..".jpg" )
+    background:translate( display.contentWidth/2, display.contentHeight/2 )
+    btnS8= display.newImage("images/s8.png")
+    btnS8:translate( display.contentWidth - 95,display.contentHeight - 35)
         
 
     -- Called when the scene's view does not exist
@@ -57,7 +60,7 @@ function scene:show( event )
         title.x = display.contentWidth / 2
         title.y = display.contentHeight / 2
         title.size = display.contentWidth / 10
-        background = display.newImage("images/imagen"..contador..".jpg" )
+        
         btnS8:addEventListener("tap", cambiaImagen)
 
 
