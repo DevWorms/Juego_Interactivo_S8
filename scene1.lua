@@ -34,10 +34,10 @@ local function cambiaImagen(event)
     
         btnS8:addEventListener("destroy",btnS8)
         contador = contador+1
-        background = display.newImage("images/imagen"..contador..".jpg" )
+        background = display.newImage("images/Foto_"..contador..".png" )
         background:translate( display.contentWidth/2, display.contentHeight/2 )
         btnS8= display.newImage("images/s8.png")
-        btnS8:translate( posX[contador],posY[contador])
+        --btnS8:translate( posX[contador],posY[contador])
         
 
         
@@ -45,7 +45,7 @@ local function cambiaImagen(event)
 end
 function scene:create( event )
     local sceneGroup = self.view
-    background = display.newImage("images/imagen"..contador..".jpg" )
+    background = display.newImage("images/Foto_"..contador..".png" )
     background:translate( display.contentWidth/2, display.contentHeight/2 )
     btnS8= display.newImage("images/s8.png")
     btnS8:translate( posX[contador],posY[contador])
@@ -68,7 +68,7 @@ function scene:show( event )
         local title = self:getObjectByName( "Title" )
         title.x = display.contentWidth / 2
         title.y = display.contentHeight / 2
-        title.size = display.contentWidth / 10
+        
         local crono = display.newText(15, 260,0, native.systemFont, 100)
         local function manageTime( event )
              print( event.time/1000 )
@@ -87,23 +87,25 @@ function scene:show( event )
         -- e.g. start timers, begin animation, play audio, etc
         
         -- we obtain the object by id from the scene's object hierarchy
+        btnS8:addEventListener("tap", cambiaImagen)
         nextSceneButton = self:getObjectByName( "GoToScene2Btn" )
         if nextSceneButton then
         	-- touch listener for the button
         	function nextSceneButton:touch ( event )
         		local phase = event.phase
-        		if "ended" == phase then
+        		if contador== ganar then
         			composer.gotoScene( "scene2", { effect = "fade", time = 300 } )
         		end
         	end
         	-- add the touch event listener to the button
         	nextSceneButton:addEventListener( "touch", nextSceneButton )
+            --if  then
+            --composer.gotoScene( "scene2", { effect = "fade", time = 300 } )
+        --end--
         end
         
     end 
-    if contador== ganar then
-            composer.gotoScene( "scene2", { effect = "fade", time = 300 } )
-        end
+    
         
 end
 

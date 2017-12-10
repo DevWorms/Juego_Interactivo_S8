@@ -1,70 +1,87 @@
----------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
 --
--- scene.lua
+-- menu.lua
 --
----------------------------------------------------------------------------------
-
-local sceneName = ...
+-----------------------------------------------------------------------------------------
 
 local composer = require( "composer" )
+local scene = composer.newScene()
 
--- Load scene with same root filename as this file
-local scene = composer.newScene( sceneName )
+-- include Corona's "widget" library
+local widget = require "widget"
 
----------------------------------------------------------------------------------
+--------------------------------------------
 
-local nextSceneButton
+-- forward declarations and other locals
+local playBtn
+
+-- 'onRelease' event listener for playBtn
+local function onPlayBtnRelease()
+    
+    -- go to level1.lua scene
+    composer.gotoScene( "scene1", "fade", 500 )
+    
+    return true -- indicates successful touch
+end
 
 function scene:create( event )
     local sceneGroup = self.view
 
-    -- Called when the scene's view does not exist
+    -- Called when the scene's view does not exist.
     -- 
     -- INSERT code here to initialize the scene
-    -- e.g. add display objects to 'sceneGroup', add touch listeners, etc
+    -- e.g. add display objects to 'sceneGroup', add touch listeners, etc.
+
+    -- display a background image
+    local background = display.newImageRect( "background.png", display.actualContentWidth, display.actualContentHeight )
+    background.anchorX = 0
+    background.anchorY = 0
+    background.x = 0 + display.screenOriginX 
+    background.y = 0 + display.screenOriginY
+    
+    -- create/position logo/title image on upper-half of the screen
+    
+    -- create a widget button (which will loads level1.lua on release)
+    playBtn = widget.newButton{
+        label="Jugar",
+        labelColor = { default={255}, over={128} },
+        default="button.png",
+        over="button-over.png",
+        width=154, height=40,
+        shape = "roundedRect",
+        fillColor = { default={0, 0.64313725490196, 0.83137254901961, 0.8 }, over={ 0.48235294117647, 0.64313725490196, 0.83137254901961, 1 } },
+        onRelease = onPlayBtnRelease    -- event listener function
+
+    }
+    playBtn.x = display.contentCenterX
+    playBtn.y = display.contentCenterY - 200
+    playBtn.height = 300
+    playBtn.width = 800
+    
+    -- all display objects must be inserted into group
+    sceneGroup:insert( background )
+   
+    sceneGroup:insert( playBtn )
 end
 
 function scene:show( event )
     local sceneGroup = self.view
     local phase = event.phase
-
+    
     if phase == "will" then
         -- Called when the scene is still off screen and is about to move on screen
-        local title = self:getObjectByName( "Title" )
-		title.x = display.contentWidth / 2
-		title.y = display.contentHeight / 2
-        title.size = display.contentWidth / 10
-        local goToScene1Btn = self:getObjectByName( "GoToScene1Btn" )
-        goToScene1Btn.x = display.contentWidth/2
-        goToScene1Btn.y = display.contentHeight/2
-        local goToScene1Text = self:getObjectByName( "GoToScene1Text" )
-        goToScene1Text.text="Jugar!"
-        goToScene1Text.x = display.contentWidth - 92
-        goToScene1Text.y = display.contentHeight - 35
     elseif phase == "did" then
         -- Called when the scene is now on screen
         -- 
         -- INSERT code here to make the scene come alive
-        -- e.g. start timers, begin animation, play audio, etc
-        nextSceneButton = self:getObjectByName( "GoToScene1Btn" )
-        if nextSceneButton then
-        	-- touch listener for the button
-        	function nextSceneButton:touch ( event )
-        		local phase = event.phase
-        		if "ended" == phase then
-        			composer.gotoScene( "scene1", { effect = "fade", time = 300 } )
-        		end
-        	end
-        	-- add the touch event listener to the button
-        	nextSceneButton:addEventListener( "touch", nextSceneButton )
-        end
+        -- e.g. start timers, begin animation, play audio, etc.
     end 
 end
 
 function scene:hide( event )
     local sceneGroup = self.view
     local phase = event.phase
-
+    
     if event.phase == "will" then
         -- Called when the scene is on screen and is about to move off screen
         --
@@ -72,20 +89,21 @@ function scene:hide( event )
         -- e.g. stop timers, stop animation, unload sounds, etc.)
     elseif phase == "did" then
         -- Called when the scene is now off screen
-		if nextSceneButton then
-			nextSceneButton:removeEventListener( "touch", nextSceneButton )
-		end
     end 
 end
 
-
 function scene:destroy( event )
     local sceneGroup = self.view
-
+    
     -- Called prior to the removal of scene's "view" (sceneGroup)
     -- 
     -- INSERT code here to cleanup the scene
-    -- e.g. remove display objects, remove touch listeners, save state, etc
+    -- e.g. remove display objects, remove touch listeners, save state, etc.
+    
+    if playBtn then
+        playBtn:removeSelf()    -- widgets must be manually removed
+        playBtn = nil
+    end
 end
 
 ---------------------------------------------------------------------------------
@@ -96,6 +114,6 @@ scene:addEventListener( "show", scene )
 scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
 
----------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
 
 return scene
