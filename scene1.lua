@@ -7,36 +7,71 @@
 local sceneName = ...
 
 local composer = require( "composer" )
+local widget = require "widget"
 
 -- Load scene with same root filename as this file
 local scene = composer.newScene( sceneName )
 local background
 local btnS8
-local posX = {display.contentWidth - 95, 50, 100,200}
-local posY = {display.contentHeight - 35,50,100,200}
+local posX = {display.contentWidth - 500, 50, 100,200,400,0,700}
+local posY = {display.contentHeight -400,50,100,200, 400, 0,700}
 local ganar = 4
+local disp
+local num = 15
 ---------------------------------------------------------------------------------
 
 local nextSceneButton
 local contador = 1
-local function btnTap(event)
+local function cronometro( )
+    num = num - 1
+    -- body
+end
+local function onPlayBtnRelease()
     
-    --utils.tipoImagen()
-    --utils.reproducirSonido("boton")
-    --composer.gotoScene ( event.target.destination, { effect = "fade"} )
+    -- go to level1.lua scene
+    composer.gotoScene( "scene2", "fade", 500 )
     
-    print(contador)
-    print("cambio la imagen")
+    return true -- indicates successful touch
+end
+local function creaBoton ()
     
-    return true
-    end 
-local function cambiaImagen(event)
+    --disp:translate( posX[contador],posY[contador])
+    disp = widget.newButton{
+    width=154, height=40,
+        shape = "roundedRect",
+        fillColor = { default={0, 0.64313725490196, 0.83137254901961, 0.8 }, over={ 0.48235294117647, 0.64313725490196, 0.83137254901961, 1 } },
+        onRelease = cambiaImagen
+    }
+    disp.x = display.contentCenterX
+    disp.y = display.contentCenterY - 200
+    disp.height = 300
+    disp.width = 800
+
+
+
+end
+local function cambiaImagen()
     
-        btnS8:addEventListener("destroy",btnS8)
+        --btnS8:addEventListener("destroy",btnS8)
+        num = 15
         contador = contador+1
         background = display.newImage("images/Foto_"..contador..".png" )
         background:translate( display.contentWidth/2, display.contentHeight/2 )
-        btnS8= display.newImage("images/s8.png")
+        disp = widget.newButton{
+        width=154, height=40,
+            shape = "roundedRect",
+            fillColor = { default={0, 0.64313725490196, 0.83137254901961, 0.8 }, over={ 0.48235294117647, 0.64313725490196, 0.83137254901961, 1 } },
+            onRelease = cambiaImagen
+        }
+        disp.x = 150
+        disp.y = 1580
+        disp.height = 360
+        disp.width = 170
+        local crono = display.newText(num, 1200,0, native.systemFont, 300)
+        crono.anchorY = 0
+        Runtime:addEventListener("enterFrame", cronometro)
+        --btnS8= display.newImage("images/s8.png")
+        
         --btnS8:translate( posX[contador],posY[contador])
         
 
@@ -47,10 +82,24 @@ function scene:create( event )
     local sceneGroup = self.view
     background = display.newImage("images/Foto_"..contador..".png" )
     background:translate( display.contentWidth/2, display.contentHeight/2 )
-    btnS8= display.newImage("images/s8.png")
-    btnS8:translate( posX[contador],posY[contador])
-    btnS8:addEventListener("tap", cambiaImagen)
-    
+
+    --disp = widget.newButton{
+    --width=154, height=40,
+    --    shape = "roundedRect",
+    --    fillColor = { default={0, 0.64313725490196, 0.83137254901961, 0.8 }, over={ 0.48235294117647, 0.64313725490196, 0.83137254901961, 1 } },
+    --    onRelease = cambiaImagen
+    --}
+    --disp.x = display.contentCenterX
+    --disp.y = display.contentCenterY - 200
+    --disp.height = 300
+    --disp.width = 800
+    --btnS8= display.newImage("images/s8.png")
+    --btnS8:translate( posX[contador],posY[contador])
+    --btnS8:addEventListener("tap", cambiaImagen)
+
+    --Runtime:addEventListener("enterFrame", mueveBoton )
+    sceneGroup:insert(background)
+    --sceneGroup:insert(disp)
         
 
     -- Called when the scene's view does not exist
@@ -62,19 +111,31 @@ end
 function scene:show( event )
     local sceneGroup = self.view
     local phase = event.phase
-
+    --creaBoton ()
+    disp = widget.newButton{
+    width=154, height=40,
+        shape = "roundedRect",
+        fillColor = { default={0, 0.64313725490196, 0.83137254901961, 0.8 }, over={ 0.48235294117647, 0.64313725490196, 0.83137254901961, 1 } },
+        onRelease = cambiaImagen
+    }
+    disp.x = 900
+    disp.y = 2450
+    disp.height = 360
+    disp.width = 170
     if phase == "will" then
         -- Called when the scene is still off screen and is about to move on screen
         local title = self:getObjectByName( "Title" )
         title.x = display.contentWidth / 2
         title.y = display.contentHeight / 2
         
-        local crono = display.newText(15, 260,0, native.systemFont, 100)
+        local crono = display.newText(num, 1200,0, native.systemFont, 300)
+        crono.anchorY = 0
         local function manageTime( event )
              print( event.time/1000 )
         end
  
         timer.performWithDelay( 1000, manageTime, 0 )
+        Runtime:addEventListener("enterFrame", cronometro)
 
         
 
@@ -87,7 +148,7 @@ function scene:show( event )
         -- e.g. start timers, begin animation, play audio, etc
         
         -- we obtain the object by id from the scene's object hierarchy
-        btnS8:addEventListener("tap", cambiaImagen)
+        --btnS8:addEventListener("tap", cambiaImagen)
         nextSceneButton = self:getObjectByName( "GoToScene2Btn" )
         if nextSceneButton then
         	-- touch listener for the button
