@@ -13,19 +13,84 @@ local widget = require "widget"
 local scene = composer.newScene( sceneName )
 local background
 local btnS8
-local posX = {display.contentWidth - 500, 50, 100,200,400,0,700}
-local posY = {display.contentHeight -400,50,100,200, 400, 0,700}
+local posX = {900,1340,440,1120,430,350,650,760,1220,280,1300,560,800,150,340,150,640,1050,240,720,940,400}
+local posY = {2450,2050,1200,1750,1910,1380,2640,1750,2390,2200,1000,850,1370,2200,2340,2450,1730,2290,1150,910,1650}
 local ganar = 4
 local disp
 local num = 15
+local startTime = 0
+local pausedAt = 0
+local timeDelay = 100  -- 1/10th of a second ( 1000 milliseconds / 10 = 100 )
+local timerIterations = 600  -- Set the timer limit to 60 seconds ( 600 * 0.1 = 60 )
 ---------------------------------------------------------------------------------
+local runMode = "stopped"
+local crono = display.newText(num, 1200,0, native.systemFont, 300)
 
+        crono.anchorY = 0
 local nextSceneButton
 local contador = 1
-local function cronometro( )
-    num = num - 1
-    -- body
+
+local function buttonHandler( id )
+
+    if ( id == "pauseResume" ) then
+
+
+
+        if ( runMode == "running" ) then
+            runMode = "paused"
+            pauseResumeButton:setLabel( "Resume" )
+            pausedAt = event.time
+            timer.pause( timerID )
+
+        elseif( runMode == "paused" ) then
+            runMode = "running"
+            pauseResumeButton:setLabel( "Pause" )
+            timer.resume( timerID )
+
+        elseif( runMode == "stopped" ) then
+            print( "message" )
+            runMode = "running"
+            --pauseResumeButton:setLabel( "Pause" )
+            crono.text = "0"
+            timerID = timer.performWithDelay( timeDelay, crono, timerIterations )
+            startTime = 0
+            pausedAt = 0
+        end
+    
+    --[[elseif ( event.target.id == "cancel" ) then
+
+        runMode = "stopped"
+        pauseResumeButton:setLabel( "Start" )
+        timerText.text = "0.0"
+        if ( timerID ) then
+            timer.cancel( timerID ) 
+            timerID = nil
+        end
+        startTime = 0
+        pausedAt = 0
+    ]]end
 end
+
+function crono:timer( event )
+
+    if ( startTime == 0 ) then
+        startTime = event.time
+    end
+
+    if ( pausedAt > 0 ) then
+        startTime = startTime + ( event.time - pausedAt )
+        pausedAt = 0
+    end
+
+    self.text = string.format( "%.0f", (event.time - startTime)/1000 )
+
+    if ( ( event.time - startTime ) >= ( timerIterations * timeDelay ) ) then
+        print( "Resetting timer..." )
+        buttonHandler("cancel")
+        --buttonHandler( { target={ id="cancel" } } )
+    end
+end
+
 local function onPlayBtnRelease()
     
     -- go to level1.lua scene
@@ -52,29 +117,34 @@ local function creaBoton ()
 end
 local function cambiaImagen()
     
-        --btnS8:addEventListener("destroy",btnS8)
+        --btnS8:addEventListener("destroy",btnS8)    
+        background:removeSelf()
+        background = nil
+        disp:removeSelf()
+        disp = nil
+
+
         num = 15
         contador = contador+1
         background = display.newImage("images/Foto_"..contador..".png" )
         background:translate( display.contentWidth/2, display.contentHeight/2 )
         disp = widget.newButton{
-        width=154, height=40,
+            width=154, height=40,
             shape = "roundedRect",
             fillColor = { default={0, 0.64313725490196, 0.83137254901961, 0.8 }, over={ 0.48235294117647, 0.64313725490196, 0.83137254901961, 1 } },
             onRelease = cambiaImagen
         }
-        disp.x = 150
-        disp.y = 1580
+        disp.x = posX[contador]
+        disp.y = posY[contador]
         disp.height = 360
         disp.width = 170
-        local crono = display.newText(num, 1200,0, native.systemFont, 300)
-        crono.anchorY = 0
-        Runtime:addEventListener("enterFrame", cronometro)
+    
+    
         --btnS8= display.newImage("images/s8.png")
         
         --btnS8:translate( posX[contador],posY[contador])
         
-
+        crono:toFront()
         
     print (contador)
 end
@@ -82,25 +152,12 @@ function scene:create( event )
     local sceneGroup = self.view
     background = display.newImage("images/Foto_"..contador..".png" )
     background:translate( display.contentWidth/2, display.contentHeight/2 )
-
-    --disp = widget.newButton{
-    --width=154, height=40,
-    --    shape = "roundedRect",
-    --    fillColor = { default={0, 0.64313725490196, 0.83137254901961, 0.8 }, over={ 0.48235294117647, 0.64313725490196, 0.83137254901961, 1 } },
-    --    onRelease = cambiaImagen
-    --}
-    --disp.x = display.contentCenterX
-    --disp.y = display.contentCenterY - 200
-    --disp.height = 300
-    --disp.width = 800
-    --btnS8= display.newImage("images/s8.png")
-    --btnS8:translate( posX[contador],posY[contador])
-    --btnS8:addEventListener("tap", cambiaImagen)
-
-    --Runtime:addEventListener("enterFrame", mueveBoton )
+  
     sceneGroup:insert(background)
     --sceneGroup:insert(disp)
         
+buttonHandler("pauseResume")
+
 
     -- Called when the scene's view does not exist
     -- 
@@ -128,14 +185,7 @@ function scene:show( event )
         title.x = display.contentWidth / 2
         title.y = display.contentHeight / 2
         
-        local crono = display.newText(num, 1200,0, native.systemFont, 300)
-        crono.anchorY = 0
-        local function manageTime( event )
-             print( event.time/1000 )
-        end
- 
-        timer.performWithDelay( 1000, manageTime, 0 )
-        Runtime:addEventListener("enterFrame", cronometro)
+      
 
         
 
@@ -196,6 +246,8 @@ function scene:destroy( event )
     -- INSERT code here to cleanup the scene
     -- e.g. remove display objects, remove touch listeners, save state, etc
 end
+
+
 
 ---------------------------------------------------------------------------------
 
