@@ -123,6 +123,8 @@ local function cambiaImagen()
         background = nil
         disp:removeSelf()
         disp = nil
+        countTxt:removeSelf()
+        countTxt=nil
 
         
         
@@ -134,7 +136,7 @@ local function cambiaImagen()
         disp = widget.newButton{
             width=154, height=40,
             shape = "roundedRect",
-            fillColor = { default={0, 0.64313725490196, 0.83137254901961, 0.8 }, over={ 0.48235294117647, 0.64313725490196, 0.83137254901961, 1 } },
+            fillColor = { default={0, 0.64313725490196, 0.83137254901961, 0.05 }, over={ 0.48235294117647, 0.64313725490196, 0.83137254901961, 1 } },
             onRelease = cambiaImagen
         }
         disp.x = posX[contador]
@@ -205,7 +207,7 @@ function scene:show( event )
         disp = widget.newButton{
          width=154, height=40,
              shape = "roundedRect",
-             fillColor = { default={0, 0.64313725490196, 0.83137254901961, 0.8 }, over={ 0.48235294117647, 0.64313725490196, 0.83137254901961, 1 } },
+             fillColor = { default={0, 0.64313725490196, 0.83137254901961, 0.05 }, over={ 0.48235294117647, 0.64313725490196, 0.83137254901961, 1 } },
              onRelease = cambiaImagen
          }
          disp.x = posX[contador]

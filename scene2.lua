@@ -10,7 +10,7 @@ local composer = require( "composer" )
 
 -- Load scene with same root filename as this file
 local scene = composer.newScene( sceneName )
-
+local widget = require "widget"
 ---------------------------------------------------------------------------------
 
 local nextSceneButton
@@ -29,34 +29,41 @@ function scene:show( event )
     local phase = event.phase
 
     if phase == "will" then
+       -- local background = display.new
         -- Called when the scene is still off screen and is about to move on screen
-        local title = self:getObjectByName( "Title" )
-        title.x = display.contentWidth / 2
-        title.y = display.contentHeight / 2
-        title.size = display.contentWidth / 10
-        local goToScene3Btn = self:getObjectByName( "GoToScene3Btn" )
-        goToScene3Btn.x = display.contentWidth - 95
-        goToScene3Btn.y = display.contentHeight - 35
-        local goToScene3Text = self:getObjectByName( "GoToScene3Text" )
-        goToScene3Text.x = display.contentWidth - 92
-        goToScene3Text.y = display.contentHeight - 35
+
+        --local title = self:getObjectByName( "Title" )
+        --title.x = display.contentWidth / 2
+        --title.y = display.contentHeight / 2
+        --title.size = display.contentWidth / 10
+        --local goToScene3Btn = self:getObjectByName( "GoToScene3Btn" )
+        --goToScene3Btn.x = display.contentWidth/2
+        --goToScene3Btn.y = 1500
+        --goToScene3Btn.width=800
+        --goToScene3Btn.height=300
+        --local goToScene3Text = self:getObjectByName( "GoToScene3Text" )
+        --goToScene3Text.x = display.contentWidth/2
+        --goToScene3Text.y = display.contentHeight/2
+        --goToScene3Text.width=800
+        --goToScene3Text.height=300
+        --goToScene3Text.fontSize =300
     elseif phase == "did" then
         -- Called when the scene is now on screen
         -- 
         -- INSERT code here to make the scene come alive
         -- e.g. start timers, begin animation, play audio, etc
-        nextSceneButton = self:getObjectByName( "GoToScene3Btn" )
-        if nextSceneButton then
-        	-- touch listener for the button
-        	function nextSceneButton:touch ( event )
-        		local phase = event.phase
-        		if "ended" == phase then
-        			composer.gotoScene( "scene3", { effect = "fade", time = 300 } )
-        		end
-        	end
-        	-- add the touch event listener to the button
-        	nextSceneButton:addEventListener( "touch", nextSceneButton )
-        end
+        --nextSceneButton = self:getObjectByName( "GoToScene3Btn" )
+        --if nextSceneButton then
+        --	-- touch listener for the button
+        --	function nextSceneButton:touch ( event )
+        --		local phase = event.phase
+        --		if "ended" == phase then
+        --			composer.gotoScene( "scene3", { effect = "fade", time = 300 } )
+        --		end
+        --	end
+        --	-- add the touch event listener to the button
+        --	nextSceneButton:addEventListener( "touch", nextSceneButton )
+        --end
     end 
 end
 
@@ -71,9 +78,9 @@ function scene:hide( event )
         -- e.g. stop timers, stop animation, unload sounds, etc.)
     elseif phase == "did" then
         -- Called when the scene is now off screen
-		if nextSceneButton then
-			nextSceneButton:removeEventListener( "touch", nextSceneButton )
-		end
+		--if nextSceneButton then
+		--	nextSceneButton:removeEventListener( "touch", nextSceneButton )
+		--end
     end 
 end
 
