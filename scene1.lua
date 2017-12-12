@@ -63,9 +63,14 @@ end
     disp.height = 300
     disp.width = 800
 end]]
+local function correcto( event)
+     
+        background = display.newImage("images/Condiciones/Correct.png" )
+        background:translate( display.contentWidth/2, display.contentHeight/2 )
+        
+end
 
 local function cambiaImagen(event)
-    
         if background ~= nil then
             background:removeSelf()
             background = nil
@@ -83,15 +88,18 @@ local function cambiaImagen(event)
             timer.cancel( timerID )
         end
 
+        if contador<11 then
+            background = display.newImage("images/Foto_"..aleatorios[contador]..".png" )
+            background:translate( display.contentWidth/2, display.contentHeight/2 )
         
-        background = display.newImage("images/Foto_"..aleatorios[contador]..".png" )
-        background:translate( display.contentWidth/2, display.contentHeight/2 )
+        end
         
         disp = widget.newButton{
             width=154, height=40,
             shape = "roundedRect",
             fillColor = { default={0, 0.64313725490196, 0.83137254901961, 0.05 }, over={ 0.48235294117647, 0.64313725490196, 0.83137254901961, 0.05 } },
             onRelease = cambiaImagen
+
         }
 
         disp.x = posX[aleatorios[contador]]
@@ -134,6 +142,8 @@ local function cambiaImagen(event)
                 background = display.newImage("images/Condiciones/Incorrect.png" )
                 background:translate( display.contentWidth/2, display.contentHeight/2 )
             elseif count == -2 and contador ~= 11 then
+                background:removeSelf()
+                background = nil
                 cambiaImagen()
             end
         end

@@ -12,10 +12,10 @@ local widget = require "widget"
 
 --------------------------------------------
 
+
+
 -- forward declarations and other locals
 local playBtn1
-local background
-local countTxt
 
 -- 'onRelease' event listener for playBtn
 local function onPlayBtnRelease()
@@ -39,13 +39,22 @@ function scene:create( event )
     local contador= 0
     --r = display.newRect( display.contentCenterX, display.contentCenterY, 150, 150 )
     -- display a background image
+    if background ~= nil then
+            background:removeSelf()
+            background = nil
+
+            countTxt:removeSelf()
+            countTxt = nil
+        end
     background = display.newRect(0,0,1440,2960)
     background.anchorX = 0
     background.anchorY = 0
     background.x = 0 + display.screenOriginX 
     background.y = 0 + display.screenOriginY
     background:setFillColor(0,0,0)
-    
+    local mensaje = display.newText("¿Quieres \nintentarlo \nde nuevo?",300,750,native.systemFont, 200 )
+    mensaje.anchorY =0
+    mensaje.anchorX=0
             playBtn1 = widget.newButton{
             label="Jugar",
             labelColor = { default={255}, over={128} },
