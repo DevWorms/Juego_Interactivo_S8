@@ -33,6 +33,21 @@ local countTxt
 
 local timerID
 local count = 15
+local aleatorios = {}
+math.randomseed( os.time() )
+aleatorios[1]= math.random( 1, 28 )
+for i=2, 10 do
+  value=math.random( 1, 28 )
+  for j=1, #aleatorios do
+    if value ==aleatorios[j] then
+      value=math.random( 1, 28 )
+      print("repetido"..value)
+      j=1
+    end
+  end
+ aleatorios[i]=value
+ print(aleatorios[i])
+end
 
 --[[local function creaBoton ()
     
@@ -69,7 +84,7 @@ local function cambiaImagen(event)
         end
 
         
-        background = display.newImage("images/Foto_"..contador..".png" )
+        background = display.newImage("images/Foto_"..aleatorios[contador]..".png" )
         background:translate( display.contentWidth/2, display.contentHeight/2 )
         
         disp = widget.newButton{
@@ -79,8 +94,8 @@ local function cambiaImagen(event)
             onRelease = cambiaImagen
         }
 
-        disp.x = posX[contador]
-        disp.y = posY[contador]
+        disp.x = posX[aleatorios[contador]]
+        disp.y = posY[aleatorios[contador]]
         disp.height = 360
         disp.width = 170
 
@@ -89,9 +104,13 @@ local function cambiaImagen(event)
         if contador == 11 then
             background:removeSelf()
             background = nil
+
             disp:removeSelf()
             disp = nil
-            composer.gotoScene( "scene2", "fade", 5)
+
+            
+            countTxt = nil
+            composer.gotoScene( "Final", "fade", 5)
             
         end
 
@@ -172,6 +191,7 @@ end
 
 function scene:destroy( event )
     local sceneGroup = self.view
+    countTxt:removeSelf()
 
     -- Called prior to the removal of scene's "view" (sceneGroup)
     -- 
