@@ -27,29 +27,7 @@ local function onPlayBtnRelease()
     return true -- indicates successful touch
 end
 
-local   function transicion()
-        background:removeSelf()
-        playBtn1:removeSelf()
-        count = 3
-        countTxt = display.newText( count, display.contentCenterX, display.contentCenterY, system.nativeFont, 300 )
-        countTxt:setFillColor( 1, 1, 1 )
-        
-        local function repeatFade (event)
-            count = count - 1
-            countTxt.text = count
-            if count == 0 then
-                composer.gotoScene( "scene1", "fade", 5)
-                countTxt:removeSelf() 
 
-            end
-
-        end
-        
-        -- Fade out rectangle every second 20x using transition.to()       
-        timer.performWithDelay(1000, repeatFade, 3 )
-        
-
-end
 
 function scene:create( event )
     local sceneGroup = self.view
