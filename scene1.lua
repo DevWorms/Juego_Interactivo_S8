@@ -30,6 +30,8 @@ local runMode = "stopped"
         --crono.anchorY = 0
 local nextSceneButton
 local contador = 1
+local bandera = false
+local countTxt
 
 --local function buttonHandler( id )
 --
@@ -124,11 +126,6 @@ local function cambiaImagen()
         disp:removeSelf()
         disp = nil
         countTxt:removeSelf()
-        countTxt=nil
-
-        
-        
-        
         contador = contador+1
 
         background = display.newImage("images/Foto_"..contador..".png" )
@@ -136,7 +133,7 @@ local function cambiaImagen()
         disp = widget.newButton{
             width=154, height=40,
             shape = "roundedRect",
-            fillColor = { default={0, 0.64313725490196, 0.83137254901961, 0.05 }, over={ 0.48235294117647, 0.64313725490196, 0.83137254901961, 1 } },
+            fillColor = { default={0, 0.64313725490196, 0.83137254901961, 0.05 }, over={ 0.48235294117647, 0.64313725490196, 0.83137254901961, 0.05 } },
             onRelease = cambiaImagen
         }
         disp.x = posX[contador]
@@ -151,22 +148,26 @@ local function cambiaImagen()
             composer.gotoScene( "scene2", "fade", 5)
             
         end
-        count = 15
+        local count = 16
         countTxt = display.newText( count, 1200,200, system.nativeFont, 300 )
         countTxt:setFillColor( 1, 1, 1 )
         anchorY=0
         
         local function repeatFade1 (event)
             count = count - 1
-            countTxt.text = count
-            if count == 0 then
-                cambiaImagen()
+            countTxt.text = count-1
+            if count == 1 then
+                background = display.newImage("images/Condiciones/Incorrect.png" )
+                background:translate( display.contentWidth/2, display.contentHeight/2 )
+                elseif count==0 then
+                    cambiaImagen()
+                end
 
-            end
+            
 
         end
         
-        timer.performWithDelay(1000, repeatFade1, 15 )
+        timer.performWithDelay(1000, repeatFade1, 16 )
     
         --btnS8= display.newImage("images/s8.png")
         
@@ -207,25 +208,27 @@ function scene:show( event )
         disp = widget.newButton{
          width=154, height=40,
              shape = "roundedRect",
-             fillColor = { default={0, 0.64313725490196, 0.83137254901961, 0.05 }, over={ 0.48235294117647, 0.64313725490196, 0.83137254901961, 1 } },
+             fillColor = { default={0, 0.64313725490196, 0.83137254901961, 0.05 }, over={ 0.48235294117647, 0.64313725490196, 0.83137254901961, 0.05 } },
              onRelease = cambiaImagen
          }
          disp.x = posX[contador]
          disp.y = posY[contador]
          disp.height = 360
          disp.width = 170
-         count = 15
+         count = 16
         countTxt = display.newText( count, 1200,200, system.nativeFont, 300 )
         countTxt:setFillColor( 1, 1, 1 )
         anchorY=0
         
         local function repeatFade1 (event)
             count = count - 1
-            countTxt.text = count
-            if count == 0 then
-                cambiaImagen()
-
-            end
+            countTxt.text = count -1
+            if count == 1 then
+                background = display.newImage("images/Condiciones/Incorrect.png" )
+                background:translate( display.contentWidth/2, display.contentHeight/2 )
+                elseif count==0 then
+                    cambiaImagen()
+                end
 
         end
         
