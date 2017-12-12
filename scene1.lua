@@ -109,8 +109,8 @@ local function cambiaImagen(event)
             disp = nil
 
             --countTxt:removeSelf()
-            countTxt = nil
-            
+            --countTxt = nil
+            composer.removeScene("scene1")
             composer.gotoScene( "Final", "fade", 5)
             
         end
@@ -121,9 +121,10 @@ local function cambiaImagen(event)
             else
                 count= 5
             end
-        
+        if contador<11 then
         countTxt = display.newText( count, 1200,200, system.nativeFont, 300 )
         countTxt:setFillColor( 1, 1, 1 )
+        
         --anchorY=0
         
         local function repeatFade1 (event)
@@ -132,12 +133,13 @@ local function cambiaImagen(event)
             if count == -1 then
                 background = display.newImage("images/Condiciones/Incorrect.png" )
                 background:translate( display.contentWidth/2, display.contentHeight/2 )
-            elseif count == -2 then
+            elseif count == -2 and contador ~= 11 then
                 cambiaImagen()
             end
         end
         
         timerID = timer.performWithDelay(1000, repeatFade1, 17 )
+        end
 
     
         --crono:toFront()
@@ -197,7 +199,7 @@ end
 
 function scene:destroy( event )
     local sceneGroup = self.view
-    
+    --countTxt:removeSelf()
 
     -- Called prior to the removal of scene's "view" (sceneGroup)
     -- 
