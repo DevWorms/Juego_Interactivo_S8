@@ -26,11 +26,10 @@ function onKeyEventPress( event )
         if ( platformName == "Android" ) then
             
             composer.removeScene("scene1")
-            
+            background:removeSelf()
+            countTxt:removeSelf()
             composer.gotoScene( "scene3", "fade", 500)
-   
             print("back: scene3")
-          
             return true
         end
     end
