@@ -18,90 +18,23 @@ local posX = {900,1340,440,1120,430,350,650,760,1220,280,1300,560,800,150,340,15
 local posY = {2450,2050,1200,1750,1910,1380,2640,1750,2390,2200,1000,850,1370,1580,2200,2340,2450,1730,2290,1150,910,1650,2000,1900,2270,2100,2200,1750}
 local ganar = 4
 local disp
-local num = 15
+
 local startTime = 15
 local pausedAt = 15
 local timeDelay = 100  -- 1/10th of a second ( 1000 milliseconds / 10 = 100 )
 local timerIterations = 150  -- Set the timer limit to 60 seconds ( 600 * 0.1 = 60 )
 ---------------------------------------------------------------------------------
 local runMode = "stopped"
---local crono = display.newText(num, 1200,0, native.systemFont, 300)
 
-        --crono.anchorY = 0
 local nextSceneButton
 local contador = 1
 local bandera = false
 local countTxt
 
---local function buttonHandler( id )
---
---    if ( id == "pauseResume" ) then
---
---
---
---        if ( runMode == "running" ) then
---            runMode = "paused"
---            pauseResumeButton:setLabel( "Resume" )
---            pausedAt = event.time
---            timer.pause( timerID )
---
---        elseif( runMode == "paused" ) then
---            runMode = "running"
---            pauseResumeButton:setLabel( "Pause" )
---            timer.resume( timerID )
---
---        elseif( runMode == "stopped" ) then
---            print( "message" )
---            runMode = "running"
---            --pauseResumeButton:setLabel( "Pause" )
---            crono.text = "15"
---            timerID = timer.performWithDelay( timeDelay, crono, timerIterations )
---            startTime = 15
---            pausedAt = 15
---        end
---    
---    --[[elseif ( event.target.id == "cancel" ) then
---
---        runMode = "stopped"
---        pauseResumeButton:setLabel( "Start" )
---        timerText.text = "0.0"
---        if ( timerID ) then
---            timer.cancel( timerID ) 
---            timerID = nil
---        end
---        startTime = 0
---        pausedAt = 0
---    ]]end
---end
+local timerID
+local count = 15
 
---function crono:timer( event )
---
---    if ( startTime == 15 ) then
---        startTime = event.time
---    end
---
---    if ( pausedAt > 15 ) then
---        startTime = startTime + ( event.time - pausedAt )
---        pausedAt = 15
---    end
---
---    self.text = string.format( "%.0f", (event.time - startTime)/1000 )
---
---    if ( ( event.time - startTime ) >= ( timerIterations * timeDelay ) ) then
---        print( "Resetting timer..." )
---        buttonHandler("cancel")
---        --buttonHandler( { target={ id="cancel" } } )
---    end
---end
-
-local function onPlayBtnRelease()
-    
-    -- go to level1.lua scene
-    composer.gotoScene( "scene2", "fade", 500 )
-    
-    return true -- indicates successful touch
-end
-local function creaBoton ()
+--[[local function creaBoton ()
     
     --disp:translate( posX[contador],posY[contador])
     disp = widget.newButton{
@@ -114,32 +47,45 @@ local function creaBoton ()
     disp.y = display.contentCenterY - 200
     disp.height = 300
     disp.width = 800
+end]]
 
-
-
-end
-local function cambiaImagen()
+local function cambiaImagen(event)
     
-        --btnS8:addEventListener("destroy",btnS8)    
-        background:removeSelf()
-        background = nil
-        disp:removeSelf()
-        disp = nil
-        countTxt:removeSelf()
-        contador = contador+1
+        if background ~= nil then
+            background:removeSelf()
+            background = nil
+            
+            disp:removeSelf()
+            disp = nil
 
+            countTxt:removeSelf()
+            countTxt = nil
+        end
+
+        if (timerID ~= nil) then
+            print("hi")
+
+            timer.cancel( timerID )
+        end
+
+        
         background = display.newImage("images/Foto_"..contador..".png" )
         background:translate( display.contentWidth/2, display.contentHeight/2 )
+        
         disp = widget.newButton{
             width=154, height=40,
             shape = "roundedRect",
             fillColor = { default={0, 0.64313725490196, 0.83137254901961, 0.05 }, over={ 0.48235294117647, 0.64313725490196, 0.83137254901961, 0.05 } },
             onRelease = cambiaImagen
         }
+
         disp.x = posX[contador]
         disp.y = posY[contador]
         disp.height = 360
         disp.width = 170
+
+        contador = contador+1
+
         if contador == 11 then
             background:removeSelf()
             background = nil
@@ -148,45 +94,38 @@ local function cambiaImagen()
             composer.gotoScene( "scene2", "fade", 5)
             
         end
-        local count = 16
+
+        count = 15
+        
         countTxt = display.newText( count, 1200,200, system.nativeFont, 300 )
         countTxt:setFillColor( 1, 1, 1 )
-        anchorY=0
+        --anchorY=0
         
         local function repeatFade1 (event)
             count = count - 1
-            countTxt.text = count-1
-            if count == 1 then
+            countTxt.text = count
+            if count == -1 then
                 background = display.newImage("images/Condiciones/Incorrect.png" )
                 background:translate( display.contentWidth/2, display.contentHeight/2 )
-                elseif count==0 then
-                    cambiaImagen()
-                end
-
-            
-
+            elseif count == -2 then
+                cambiaImagen()
+            end
         end
         
-        timer.performWithDelay(1000, repeatFade1, 16 )
+        timerID = timer.performWithDelay(1000, repeatFade1, 17 )
+
     
-        --btnS8= display.newImage("images/s8.png")
-        
-        --btnS8:translate( posX[contador],posY[contador])
-        
         --crono:toFront()
         
     print (contador)
 end
 function scene:create( event )
     local sceneGroup = self.view
-    background = display.newImage("images/Foto_"..contador..".png" )
-    background:translate( display.contentWidth/2, display.contentHeight/2 )
-  
-    sceneGroup:insert(background)
-    --sceneGroup:insert(disp)
-        
---buttonHandler("pauseResume")
+    
+    --sceneGroup:insert(background)
 
+    cambiaImagen()
+    
 
     -- Called when the scene's view does not exist
     -- 
@@ -197,76 +136,19 @@ end
 function scene:show( event )
     local sceneGroup = self.view
     local phase = event.phase
-    --creaBoton ()
     
 
     if phase == "will" then
-        -- Called when the scene is still off screen and is about to move on screen
-        local title = self:getObjectByName( "Title" )
-        title.x = display.contentWidth / 2
-        title.y = display.contentHeight / 2
-        disp = widget.newButton{
-         width=154, height=40,
-             shape = "roundedRect",
-             fillColor = { default={0, 0.64313725490196, 0.83137254901961, 0.05 }, over={ 0.48235294117647, 0.64313725490196, 0.83137254901961, 0.05 } },
-             onRelease = cambiaImagen
-         }
-         disp.x = posX[contador]
-         disp.y = posY[contador]
-         disp.height = 360
-         disp.width = 170
-         count = 16
-        countTxt = display.newText( count, 1200,200, system.nativeFont, 300 )
-        countTxt:setFillColor( 1, 1, 1 )
-        anchorY=0
-        
-        local function repeatFade1 (event)
-            count = count - 1
-            countTxt.text = count -1
-            if count == 1 then
-                background = display.newImage("images/Condiciones/Incorrect.png" )
-                background:translate( display.contentWidth/2, display.contentHeight/2 )
-                elseif count==0 then
-                    cambiaImagen()
-                end
-
-        end
-        
-        timer.performWithDelay(1000, repeatFade1, 15 )
-           
-
-        
-
-
         
     elseif phase == "did" then
 
-
-        -- Called when the scene is now on screen
-        -- 
-        -- INSERT code here to make the scene come alive
-        -- e.g. start timers, begin animation, play audio, etc
-        
-        -- we obtain the object by id from the scene's object hierarchy
-        --btnS8:addEventListener("tap", cambiaImagen)
-        nextSceneButton = self:getObjectByName( "GoToScene2Btn" )
-        if nextSceneButton then
-        	-- touch listener for the button
-        	function nextSceneButton:touch ( event )
-        		local phase = event.phase
-        		if contador== ganar then
-        			composer.gotoScene( "scene2", { effect = "fade", time = 300 } )
-        		end
-        	end
-        	-- add the touch event listener to the button
-        	nextSceneButton:addEventListener( "touch", nextSceneButton )
-            --if  then
-            --composer.gotoScene( "scene2", { effect = "fade", time = 300 } )
-        --end--
-        end
-        
     end 
     
+    -- Called when the scene is now on screen
+    -- 
+    -- INSERT code here to make the scene come alive
+    -- e.g. start timers, begin animation, play audio, etc
+            
         
 end
 
