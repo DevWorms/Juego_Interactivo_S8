@@ -13,15 +13,24 @@ local widget = require "widget"
 --------------------------------------------
 
 -- forward declarations and other locals
-local playBtn
+local playBtn1
+local background
 
 -- 'onRelease' event listener for playBtn
 local function onPlayBtnRelease()
     
     -- go to level1.lua scene
-    composer.gotoScene( "scene1", "fade", 500 )
-    
+
+    composer.gotoScene( "scene1", "fade", 500)
+
     return true -- indicates successful touch
+end
+
+local   function transicion()
+        
+
+
+
 end
 
 function scene:create( event )
@@ -31,37 +40,51 @@ function scene:create( event )
     -- 
     -- INSERT code here to initialize the scene
     -- e.g. add display objects to 'sceneGroup', add touch listeners, etc.
-
+    local contador= 0
+    --r = display.newRect( display.contentCenterX, display.contentCenterY, 150, 150 )
     -- display a background image
-    local background = display.newImageRect( "background.png", display.actualContentWidth, display.actualContentHeight )
+    background = display.newImageRect( "images/instrucciones/instrucciones"..contador..".png", display.actualContentWidth, display.actualContentHeight )
     background.anchorX = 0
     background.anchorY = 0
     background.x = 0 + display.screenOriginX 
     background.y = 0 + display.screenOriginY
+    local function repeatFade (event)
+        --r.alpha = 1
+        --transition.to( r, { alpha=0, time=1000 } )
+        contador = contador + 1
+        background = display.newImageRect( "images/instrucciones/instrucciones"..contador..".png", display.actualContentWidth, display.actualContentHeight )
+        background.anchorX = 0
+        background.anchorY = 0
+        background.x = 0 + display.screenOriginX 
+        background.y = 0 + display.screenOriginY
+        if contador == 4 then
+            playBtn1 = widget.newButton{
+            label="Jugar",
+            labelColor = { default={255}, over={128} },
+            default="button.png",
+            over="button-over.png",
+            width=154, height=40,
+            shape = "roundedRect",
+            fillColor = { default={0, 0.64313725490196, 0.83137254901961, 0.8 }, over={ 0.48235294117647, 0.64313725490196, 0.83137254901961, 1 } },
+            onRelease = transicion   -- event listener function
+            }
+            playBtn1.x = display.contentCenterX
+            playBtn1.y = display.contentCenterY - 200
+            playBtn1.height = 300
+            playBtn1.width = 800
+        end
+    end
+    timer.performWithDelay(5000, repeatFade, 4 )
     
-    -- create/position logo/title image on upper-half of the screen
+     --create/position logo/title image on upper-half of the screen
     
-    -- create a widget button (which will loads level1.lua on release)
-    playBtn = widget.newButton{
-        label="Jugar",
-        labelColor = { default={255}, over={128} },
-        default="button.png",
-        over="button-over.png",
-        width=154, height=40,
-        shape = "roundedRect",
-        fillColor = { default={0, 0.64313725490196, 0.83137254901961, 0.8 }, over={ 0.48235294117647, 0.64313725490196, 0.83137254901961, 1 } },
-        onRelease = onPlayBtnRelease    -- event listener function
-
-    }
-    playBtn.x = display.contentCenterX
-    playBtn.y = display.contentCenterY - 200
-    playBtn.height = 300
-    playBtn.width = 800
-    
+         --create a widget button (which will loads level1.lua on release)
+        
+    --
     -- all display objects must be inserted into group
     sceneGroup:insert( background )
    
-    sceneGroup:insert( playBtn )
+    --sceneGroup:insert( playBtn1 )
 end
 
 function scene:show( event )
