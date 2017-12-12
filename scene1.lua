@@ -108,8 +108,9 @@ local function cambiaImagen(event)
             disp:removeSelf()
             disp = nil
 
-            countTxt:removeSelf()
+            --countTxt:removeSelf()
             countTxt = nil
+            
             composer.gotoScene( "Final", "fade", 5)
             
         end
@@ -196,7 +197,7 @@ end
 
 function scene:destroy( event )
     local sceneGroup = self.view
-    countTxt:removeSelf()
+    
 
     -- Called prior to the removal of scene's "view" (sceneGroup)
     -- 

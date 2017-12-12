@@ -20,14 +20,12 @@ composer.gotoScene( "scene1" )
 
 function onKeyEventPress( event )
     
-    if ( event.keyName == "back" and composer.getSceneName( "current" )~= "scene3"  
+    if ( event.keyName == "back" and composer.getSceneName( "current" )~= "scene3" and composer.getSceneName( "current" )~= "Final" 
          and event.phase == "down" ) then
         local platformName = system.getInfo( "platformName" )
         if ( platformName == "Android" ) then
             
-            
-            
-           
+            composer.removeScene("scene1")
             
             composer.gotoScene( "scene3", "fade", 500)
    
