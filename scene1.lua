@@ -158,7 +158,7 @@ local function cambiaImagen(event)
                 cambiaImagen()
 
                 elseif count ==15 and bandera then
-                    background = display.newImage("images/Condiciones/Incorrect.png" )
+                    background = display.newImage("images/Condiciones/Correct.png" )
                     background:translate( display.contentWidth/2, display.contentHeight/2 )
                 end
             

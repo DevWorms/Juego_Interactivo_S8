@@ -53,7 +53,7 @@ function scene:create( event )
     background.y = 0 + display.screenOriginY
     background:setFillColor(0,0,0)
     
-    local mensaje = display.newText("¿Quieres \nintentarlo \nde nuevo?",300,750,native.systemFont, 200 )
+    local mensaje = display.newText("   ¡Felicidades! \nHaz completado \n      el Juego",100,750,native.systemFont, 175 )
     mensaje.anchorY =0
     mensaje.anchorX=0
             playBtn1 = widget.newButton{
