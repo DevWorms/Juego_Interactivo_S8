@@ -15,6 +15,7 @@ local widget = require "widget"
 -- forward declarations and other locals
 local playBtn1
 local background
+local countTxt
 
 -- 'onRelease' event listener for playBtn
 local function onPlayBtnRelease()
@@ -27,9 +28,26 @@ local function onPlayBtnRelease()
 end
 
 local   function transicion()
+        background:removeSelf()
+        playBtn1:removeSelf()
+        count = 3
+        countTxt = display.newText( count, display.contentCenterX, display.contentCenterY, system.nativeFont, 300 )
+        countTxt:setFillColor( 1, 1, 1 )
         
+        local function repeatFade (event)
+            count = count - 1
+            countTxt.text = count
+            if count == 0 then
+                composer.gotoScene( "scene1", "fade", 5)
+                countTxt:removeSelf() 
 
+            end
 
+        end
+        
+        -- Fade out rectangle every second 20x using transition.to()       
+        timer.performWithDelay(1000, repeatFade, 3 )
+        
 
 end
 
@@ -49,6 +67,7 @@ function scene:create( event )
     background.x = 0 + display.screenOriginX 
     background.y = 0 + display.screenOriginY
     local function repeatFade (event)
+        background:removeSelf()
         --r.alpha = 1
         --transition.to( r, { alpha=0, time=1000 } )
         contador = contador + 1
@@ -69,12 +88,12 @@ function scene:create( event )
             onRelease = transicion   -- event listener function
             }
             playBtn1.x = display.contentCenterX
-            playBtn1.y = display.contentCenterY - 200
+            playBtn1.y = 2000
             playBtn1.height = 300
             playBtn1.width = 800
         end
     end
-    timer.performWithDelay(5000, repeatFade, 4 )
+    timer.performWithDelay(3000, repeatFade, 4 )
     
      --create/position logo/title image on upper-half of the screen
     
@@ -123,9 +142,9 @@ function scene:destroy( event )
     -- INSERT code here to cleanup the scene
     -- e.g. remove display objects, remove touch listeners, save state, etc.
     
-    if playBtn then
-        playBtn:removeSelf()    -- widgets must be manually removed
-        playBtn = nil
+    if countTxt then
+        countTxt:removeSelf()    -- widgets must be manually removed
+        countTxt = nil
     end
 end
 
