@@ -45,13 +45,14 @@ function scene:create( event )
 
             countTxt:removeSelf()
             countTxt = nil
-        end
+    end
     background = display.newRect(0,0,1440,2960)
     background.anchorX = 0
     background.anchorY = 0
     background.x = 0 + display.screenOriginX 
     background.y = 0 + display.screenOriginY
     background:setFillColor(0,0,0)
+    
     local mensaje = display.newText("¿Quieres \nintentarlo \nde nuevo?",300,750,native.systemFont, 200 )
     mensaje.anchorY =0
     mensaje.anchorX=0

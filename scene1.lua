@@ -12,6 +12,7 @@ local widget = require "widget"
 -- Load scene with same root filename as this file
 local scene = composer.newScene( sceneName )
 local background
+_G.background = nil
 local btnS8  --1   2    3   4    5   6   7   8   9   10   11  12   13  14  15  16  17  18  19  20  21   22  23  24   25  26  27  28
 local posX = {900,1340,440,1120,430,350,650,760,1220,280,1300,560,800,150,340,150,640,1050,240,720,940,400,830,800, 425,150,650,150}
 --            1      2    3   4    5     6    7   8    9    10   11  12   13  14    15   16   17   18   19   20   21   22  23   24    25   26   27   28  
@@ -30,6 +31,7 @@ local nextSceneButton
 local contador = 1
 local bandera = false
 local countTxt
+_G.countTxt = nil
 
 local timerID
 local count = 15
@@ -71,6 +73,7 @@ local function correcto( event)
 end
 
 local function cambiaImagen(event)
+
         if background ~= nil then
             background:removeSelf()
             background = nil
@@ -120,6 +123,8 @@ local function cambiaImagen(event)
             --countTxt = nil
             composer.removeScene("scene1")
             composer.gotoScene( "Final", "fade", 5)
+            --countTxt:removeSelf()
+            --countTxt=nil
             
         end
         if contador < 4 then
@@ -139,13 +144,24 @@ local function cambiaImagen(event)
             count = count - 1
             countTxt.text = count
             if count == -1 then
+                background:removeSelf()
+                background = nil
+
+                bandera = false
+
                 background = display.newImage("images/Condiciones/Incorrect.png" )
                 background:translate( display.contentWidth/2, display.contentHeight/2 )
+
             elseif count == -2 and contador ~= 11 then
                 background:removeSelf()
                 background = nil
                 cambiaImagen()
-            end
+
+                elseif count ==15 and bandera then
+                    background = display.newImage("images/Condiciones/Incorrect.png" )
+                    background:translate( display.contentWidth/2, display.contentHeight/2 )
+                end
+            
         end
         
         timerID = timer.performWithDelay(1000, repeatFade1, 17 )
@@ -194,6 +210,8 @@ function scene:hide( event )
     local phase = event.phase
 
     if event.phase == "will" then
+        countTxt:removeSelf()
+            countTxt = nil
         -- Called when the scene is on screen and is about to move off screen
         --
         -- INSERT code here to pause the scene
@@ -209,7 +227,7 @@ end
 
 function scene:destroy( event )
     local sceneGroup = self.view
-    --countTxt:removeSelf()
+    
 
     -- Called prior to the removal of scene's "view" (sceneGroup)
     -- 
