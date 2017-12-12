@@ -108,13 +108,18 @@ local function cambiaImagen(event)
             disp:removeSelf()
             disp = nil
 
-            
+            countTxt:removeSelf()
             countTxt = nil
             composer.gotoScene( "Final", "fade", 5)
             
         end
-
-        count = 15
+        if contador < 4 then
+            count = 15
+            elseif contador < 7 then
+                count= 10
+            else
+                count= 5
+            end
         
         countTxt = display.newText( count, 1200,200, system.nativeFont, 300 )
         countTxt:setFillColor( 1, 1, 1 )
