@@ -149,7 +149,7 @@ local function cambiaImagen()
             
         end
         local count = 16
-        countTxt = display.newText( count, 1200,200, system.nativeFont, 300 )
+        countTxt = display.newText( count - 1, 1200,200, system.nativeFont, 300 )
         countTxt:setFillColor( 1, 1, 1 )
         anchorY=0
         
@@ -162,9 +162,6 @@ local function cambiaImagen()
                 elseif count==0 then
                     cambiaImagen()
                 end
-
-            
-
         end
         
         timer.performWithDelay(1000, repeatFade1, 16 )
@@ -216,7 +213,7 @@ function scene:show( event )
          disp.height = 360
          disp.width = 170
          count = 16
-        countTxt = display.newText( count, 1200,200, system.nativeFont, 300 )
+        countTxt = display.newText( count -1, 1200,200, system.nativeFont, 300 )
         countTxt:setFillColor( 1, 1, 1 )
         anchorY=0
         
@@ -232,7 +229,7 @@ function scene:show( event )
 
         end
         
-        timer.performWithDelay(1000, repeatFade1, 15 )
+        timer.performWithDelay(1000, repeatFade1, 16 )
            
 
         
