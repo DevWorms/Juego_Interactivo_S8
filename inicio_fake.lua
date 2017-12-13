@@ -21,6 +21,7 @@ local countTxt
 local function onPlayBtnRelease()
     
     -- go to level1.lua scene
+
     composer.gotoScene( "scene1", "fade", 500)
 
     return true -- indicates successful touch
@@ -30,17 +31,10 @@ local   function transicion()
         background:removeSelf()
         playBtn1:removeSelf()
         count = 3
-        background = display.newRect(0,0,1440,2960)
-        background.anchorX = 0
-        background.anchorY = 0
-        background.x = 0 + display.screenOriginX 
-        background.y = 0 + display.screenOriginY
-        background:setFillColor(0,0,0)
         countTxt = display.newText( count, display.contentCenterX, display.contentCenterY, system.nativeFont, 300 )
         countTxt:setFillColor( 1, 1, 1 )
         
         local function repeatFade (event)
-            
             count = count - 1
             countTxt.text = count
             if count == 0 then
@@ -59,57 +53,20 @@ end
 
 function scene:create( event )
     local sceneGroup = self.view
-    print("hola")
+
     -- Called when the scene's view does not exist.
     -- 
     -- INSERT code here to initialize the scene
     -- e.g. add display objects to 'sceneGroup', add touch listeners, etc.
-    --local contador= 0
-    ----r = display.newRect( display.contentCenterX, display.contentCenterY, 150, 150 )
-    ---- display a background image
-    --background = display.newImageRect( "images/Instrucciones/nstrucciones.png", display.actualContentWidth, display.actualContentHeight )
-    --background.anchorX = 0
-    --background.anchorY = 0
-    --background.x = 0 + display.screenOriginX 
-    --background.y = 0 + display.screenOriginY
-    --playBtn1 = widget.newButton{
-    --        labelColor = { default={255}, over={128} },
-    --        default="button.png",
-    --        over="button-over.png",
-    --        width=154, height=40,
-    --        shape = "roundedRect",
-    --        fillColor = { default={0.1, 0.1, 0.1, 0.01 }, over={ 0.1, 0.1, 0.1, 0.5 } },
-    --        onRelease = transicion   -- event listener function
-    --        }
-    --        playBtn1.x = display.contentCenterX
-    --        playBtn1.y = 1590
-    --        playBtn1.height = 240
-    --        playBtn1.width = 800
-    --
-    --sceneGroup:insert( background )
-   
-    --sceneGroup:insert( playBtn1 )
-end
-
-function scene:show( event )
-    print("hola")
-    local sceneGroup = self.view
-    local phase = event.phase
-    
-    if phase == "will" then
-        local contador= 0
-         if background ~= nil then
-            background:removeSelf()
-            background = nil
-        end
+    local contador= 0
     --r = display.newRect( display.contentCenterX, display.contentCenterY, 150, 150 )
     -- display a background image
-            background = display.newImageRect( "images/Instrucciones/nstrucciones.png", display.actualContentWidth, display.actualContentHeight )
-            background.anchorX = 0
-            background.anchorY = 0
-            background.x = 0 + display.screenOriginX 
-            background.y = 0 + display.screenOriginY
-            playBtn1 = widget.newButton{
+    background = display.newImageRect( "images/Instrucciones/nstrucciones.png", display.actualContentWidth, display.actualContentHeight )
+    background.anchorX = 0
+    background.anchorY = 0
+    background.x = 0 + display.screenOriginX 
+    background.y = 0 + display.screenOriginY
+    playBtn1 = widget.newButton{
             labelColor = { default={255}, over={128} },
             default="button.png",
             over="button-over.png",
@@ -123,11 +80,24 @@ function scene:show( event )
             playBtn1.height = 240
             playBtn1.width = 800
     
+     --create/position logo/title image on upper-half of the screen
+    
+         --create a widget button (which will loads level1.lua on release)
+        
+    --
+    -- all display objects must be inserted into group
     sceneGroup:insert( background )
-         
+   
+    --sceneGroup:insert( playBtn1 )
+end
+
+function scene:show( event )
+    local sceneGroup = self.view
+    local phase = event.phase
+    
+    if phase == "will" then
         -- Called when the scene is still off screen and is about to move on screen
     elseif phase == "did" then
-        
         -- Called when the scene is now on screen
         -- 
         -- INSERT code here to make the scene come alive

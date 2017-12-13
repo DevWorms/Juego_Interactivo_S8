@@ -12,7 +12,7 @@ local widget = require "widget"
 -- Load scene with same root filename as this file
 local scene = composer.newScene( sceneName )
 local background
-_G.background = nil
+
 local btnS8  --1   2    3   4    5   6   7   8   9   10   11  12   13  14  15  16  17  18  19  20  21   22  23  24   25  26  27  28
 local posX = {900,1340,440,1120,430,350,650,760,1220,280,1300,560,800,150,340,150,640,1050,240,720,940,400,830,800, 425,150,650,150}
 --            1      2    3   4    5     6    7   8    9    10   11  12   13  14    15   16   17   18   19   20   21   22  23   24    25   26   27   28  
@@ -31,8 +31,8 @@ local nextSceneButton
 local contador = 1
 local bandera = false
 local countTxt
-_G.countTxt = nil
 
+local iteraciones = 10
 local timerID
 local count = 15
 local aleatorios = {}
@@ -77,10 +77,6 @@ local function cambiaImagen(event)
         if background ~= nil then
             background:removeSelf()
             background = nil
-            
-            
-
-           
         end
         if disp ~=nil then
             disp:removeSelf()
@@ -163,7 +159,10 @@ local function cambiaImagen(event)
             elseif count == -2 and contador ~= 12 then
                 background:removeSelf()
                 background = nil
-                cambiaImagen()
+                countTxt:removeSelf()
+                countTxt = nil
+                composer.removeScene("scene1")
+                composer.gotoScene( "scene3", "fade", 500)
 
                 elseif count ==15 and bandera then
                     background = display.newImage("images/Condiciones/Correct.png" )
