@@ -38,7 +38,7 @@ local count = 15
 local aleatorios = {}
 math.randomseed( os.time() )
 aleatorios[1]= math.random( 1, 28 )
-for i=2, 10 do
+for i=2, 11 do
   value=math.random( 1, 28 )
   for j=1, #aleatorios do
     if value ==aleatorios[j] then
@@ -91,7 +91,7 @@ local function cambiaImagen(event)
             timer.cancel( timerID )
         end
 
-        if contador<11 then
+        if contador<12 then
             background = display.newImage("images/Foto_"..aleatorios[contador]..".png" )
             background:translate( display.contentWidth/2, display.contentHeight/2 )
         
@@ -112,7 +112,7 @@ local function cambiaImagen(event)
 
         contador = contador+1
 
-        if contador == 11 then
+        if contador == 12 then
             background:removeSelf()
             background = nil
 
@@ -127,14 +127,14 @@ local function cambiaImagen(event)
             --countTxt=nil
             
         end
-        if contador < 4 then
+        if contador < 5 then
             count = 15
-            elseif contador < 7 then
+            elseif contador < 8 then
                 count= 10
             else
                 count= 5
             end
-        if contador<11 then
+        if contador<12 then
         countTxt = display.newText( count, 1200,200, system.nativeFont, 300 )
         countTxt:setFillColor( 1, 1, 1 )
         
