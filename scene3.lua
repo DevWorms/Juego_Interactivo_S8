@@ -61,7 +61,7 @@ function scene:create( event )
     local contador= 0
     --r = display.newRect( display.contentCenterX, display.contentCenterY, 150, 150 )
     -- display a background image
-    background = display.newImageRect( "images/instrucciones/instrucciones"..contador..".png", display.actualContentWidth, display.actualContentHeight )
+    background = display.newImageRect( "images/instrucciones/nstrucciones"..contador..".png", display.actualContentWidth, display.actualContentHeight )
     background.anchorX = 0
     background.anchorY = 0
     background.x = 0 + display.screenOriginX 
@@ -71,7 +71,7 @@ function scene:create( event )
         --r.alpha = 1
         --transition.to( r, { alpha=0, time=1000 } )
         contador = contador + 1
-        background = display.newImageRect( "images/instrucciones/instrucciones"..contador..".png", display.actualContentWidth, display.actualContentHeight )
+        background = display.newImageRect( "images/instrucciones/nstrucciones"..contador..".png", display.actualContentWidth, display.actualContentHeight )
         background.anchorX = 0
         background.anchorY = 0
         background.x = 0 + display.screenOriginX 
