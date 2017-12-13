@@ -123,6 +123,7 @@ local function cambiaImagen(event)
 
             
             composer.removeScene("scene1")
+            print("hola "..contador)
             composer.gotoScene( "Final", "fade", 5)
             --countTxt:removeSelf()
             --countTxt=nil
@@ -143,7 +144,9 @@ local function cambiaImagen(event)
         
         local function repeatFade1 (event)
             count = count - 1
+            if countTxt ~= nil then
             countTxt.text = count
+            end
             if count == -1 then
                 background:removeSelf()
                 background = nil
@@ -156,7 +159,7 @@ local function cambiaImagen(event)
                 disp:removeSelf()
                 disp = nil
 
-            elseif count == -2 and contador ~= 12 then
+            elseif count == -2  then
                 background:removeSelf()
                 background = nil
                 countTxt:removeSelf()
