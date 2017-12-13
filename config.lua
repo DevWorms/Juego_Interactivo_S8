@@ -20,11 +20,11 @@ application =
 		},
 		--]]
 	},
-	settings=
-	{
-		splashScreen=
-	 		{
-				enable = false
-			}
+	settings =
+		{
+    		splashScreen = 
+    		{
+        enable = false
+    		},
 		}
 }
