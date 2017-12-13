@@ -78,10 +78,13 @@ local function cambiaImagen(event)
             background:removeSelf()
             background = nil
             
-            disp:removeSelf()
-            disp = nil
+            
 
            
+        end
+        if disp ~=nil then
+            disp:removeSelf()
+            disp = nil
         end
         if countTxt ~= nil then
             countTxt:removeSelf()
@@ -153,6 +156,9 @@ local function cambiaImagen(event)
 
                 background = display.newImage("images/Condiciones/Incorrect.png" )
                 background:translate( display.contentWidth/2, display.contentHeight/2 )
+
+                disp:removeSelf()
+                disp = nil
 
             elseif count == -2 and contador ~= 12 then
                 background:removeSelf()
