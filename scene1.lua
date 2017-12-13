@@ -81,6 +81,9 @@ local function cambiaImagen(event)
             disp:removeSelf()
             disp = nil
 
+           
+        end
+        if countTxt ~= nil then
             countTxt:removeSelf()
             countTxt = nil
         end
@@ -119,8 +122,7 @@ local function cambiaImagen(event)
             disp:removeSelf()
             disp = nil
 
-            --countTxt:removeSelf()
-            --countTxt = nil
+            
             composer.removeScene("scene1")
             composer.gotoScene( "Final", "fade", 5)
             --countTxt:removeSelf()
