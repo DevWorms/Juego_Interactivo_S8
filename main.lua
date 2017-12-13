@@ -16,7 +16,7 @@ local composer = require "composer"
 -- Add any system wide event handlers, location, key events, system resume/suspend, memory, etc.
 
 -- load scene1
-composer.gotoScene( "scene1" )
+composer.gotoScene( "scene3" )
 
 function onKeyEventPress( event )
     
@@ -26,8 +26,13 @@ function onKeyEventPress( event )
         if ( platformName == "Android" ) then
             
             composer.removeScene("scene1")
-            background:removeSelf()
-            countTxt:removeSelf()
+            if background~=nil then
+                background:removeSelf()
+            end
+            if countTxt~=nil then
+                countTxt:removeSelf()
+            end
+            
             composer.gotoScene( "scene3", "fade", 500)
             print("back: scene3")
             return true

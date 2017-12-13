@@ -61,39 +61,24 @@ function scene:create( event )
     local contador= 0
     --r = display.newRect( display.contentCenterX, display.contentCenterY, 150, 150 )
     -- display a background image
-    background = display.newImageRect( "images/Instrucciones/nstrucciones"..contador..".png", display.actualContentWidth, display.actualContentHeight )
+    background = display.newImageRect( "images/Instrucciones/nstrucciones.png", display.actualContentWidth, display.actualContentHeight )
     background.anchorX = 0
     background.anchorY = 0
     background.x = 0 + display.screenOriginX 
     background.y = 0 + display.screenOriginY
-    local function repeatFade (event)
-        background:removeSelf()
-        --r.alpha = 1
-        --transition.to( r, { alpha=0, time=1000 } )
-        contador = contador + 1
-        background = display.newImageRect( "images/Instrucciones/nstrucciones"..contador..".png", display.actualContentWidth, display.actualContentHeight )
-        background.anchorX = 0
-        background.anchorY = 0
-        background.x = 0 + display.screenOriginX 
-        background.y = 0 + display.screenOriginY
-        if contador == 4 then
-            playBtn1 = widget.newButton{
-            label="Jugar",
+    playBtn1 = widget.newButton{
             labelColor = { default={255}, over={128} },
             default="button.png",
             over="button-over.png",
             width=154, height=40,
             shape = "roundedRect",
-            fillColor = { default={0, 0.64313725490196, 0.83137254901961, 0.8 }, over={ 0.48235294117647, 0.64313725490196, 0.83137254901961, 1 } },
+            fillColor = { default={0.1, 0.1, 0.1, 0.01 }, over={ 0.1, 0.1, 0.1, 0.5 } },
             onRelease = transicion   -- event listener function
             }
             playBtn1.x = display.contentCenterX
-            playBtn1.y = 2000
-            playBtn1.height = 300
+            playBtn1.y = 1590
+            playBtn1.height = 240
             playBtn1.width = 800
-        end
-    end
-    timer.performWithDelay(3000, repeatFade, 4 )
     
      --create/position logo/title image on upper-half of the screen
     
