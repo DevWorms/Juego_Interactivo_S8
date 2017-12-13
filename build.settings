@@ -13,20 +13,9 @@ settings =
 		supported = { "portrait", },
 	},
 
-	--
-	-- Android section
-	--
-	android =
-	{
-		usesPermissions =
-		{
-			"android.permission.INTERNET",
-		},
-	},
-
-	splashScreen = 
+	--[[splashScreen = 
     {
         enable = false
-    },
+    },]]
 
 }

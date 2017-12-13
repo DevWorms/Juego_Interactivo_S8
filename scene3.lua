@@ -62,8 +62,8 @@ function scene:create( event )
     --r = display.newRect( display.contentCenterX, display.contentCenterY, 150, 150 )
     -- display a background image
     background = display.newImageRect( "images/instrucciones/nstrucciones"..contador..".png", display.actualContentWidth, display.actualContentHeight )
-    background.anchorX = 0
-    background.anchorY = 0
+    --background.anchorX = 0
+    --background.anchorY = 0
     background.x = 0 + display.screenOriginX 
     background.y = 0 + display.screenOriginY
     local function repeatFade (event)
@@ -72,8 +72,8 @@ function scene:create( event )
         --transition.to( r, { alpha=0, time=1000 } )
         contador = contador + 1
         background = display.newImageRect( "images/instrucciones/nstrucciones"..contador..".png", display.actualContentWidth, display.actualContentHeight )
-        background.anchorX = 0
-        background.anchorY = 0
+        --background.anchorX = 0
+        --background.anchorY = 0
         background.x = 0 + display.screenOriginX 
         background.y = 0 + display.screenOriginY
         if contador == 4 then
