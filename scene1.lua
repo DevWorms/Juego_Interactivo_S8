@@ -154,7 +154,7 @@ local function cambiaImagen(event)
                 background = display.newImage("images/Condiciones/Incorrect.png" )
                 background:translate( display.contentWidth/2, display.contentHeight/2 )
 
-            elseif count == -2 and contador ~= 11 then
+            elseif count == -2 and contador ~= 12 then
                 background:removeSelf()
                 background = nil
                 cambiaImagen()
@@ -163,6 +163,7 @@ local function cambiaImagen(event)
                     background = display.newImage("images/Condiciones/Correct.png" )
                     background:translate( display.contentWidth/2, display.contentHeight/2 )
                 end
+                
             
         end
         

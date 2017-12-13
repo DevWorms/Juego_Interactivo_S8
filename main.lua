@@ -16,7 +16,7 @@ local composer = require "composer"
 -- Add any system wide event handlers, location, key events, system resume/suspend, memory, etc.
 
 -- load scene1
-composer.gotoScene( "scene3" )
+composer.gotoScene( "scene1" )
 
 function onKeyEventPress( event )
     
