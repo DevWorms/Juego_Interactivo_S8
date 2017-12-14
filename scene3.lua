@@ -1,6 +1,6 @@
 -----------------------------------------------------------------------------------------
 --
--- menu.lua
+-- scene3.lua
 --
 -----------------------------------------------------------------------------------------
 
@@ -100,19 +100,17 @@ function scene:show( event )
     
     if phase == "will" then
         local contador= 0
-        
-         if background ~=nil then
+         if background ~= nil then
             background:removeSelf()
             background = nil
         end
     --r = display.newRect( display.contentCenterX, display.contentCenterY, 150, 150 )
     -- display a background image
             background = display.newImage(sceneGroup, "images/Instrucciones/nstrucciones.png")
-            background.width=1440
-            background.height=2960
+            --background.width=1440
+            --background.height=2960
             background:translate( display.contentWidth/2, display.contentHeight/2 )
-            background.width=1440
-            background.height=2950
+        
             playBtn1 = widget.newButton{
             labelColor = { default={255}, over={128} },
             default="button.png",
@@ -127,7 +125,7 @@ function scene:show( event )
             playBtn1.height = 240
             playBtn1.width = 800
     
-    sceneGroup:insert( background )
+    --sceneGroup:insert( background )
          
         -- Called when the scene is still off screen and is about to move on screen
     elseif phase == "did" then

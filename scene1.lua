@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------
 --
--- scene.lua
+-- scene1.lua
 --
 ---------------------------------------------------------------------------------
 
@@ -65,12 +65,6 @@ end
     disp.height = 300
     disp.width = 800
 end]]
-local function correcto( event)
-     
-        background = display.newImage("images/Condiciones/Correct.png" )
-        background:translate( display.contentWidth/2, display.contentHeight/2 )
-        
-end
 
 local function cambiaImagen(event)
 
@@ -114,16 +108,15 @@ local function cambiaImagen(event)
 
         if contador == 12 then
             if background ~= nil then
-            background:removeSelf()
-            background = nil
+                background:removeSelf()
+                background = nil
             end
-            if disp ~=nil then
-            disp:removeSelf()
-            disp = nil
-            end
-        
-
             
+            if disp ~=nil then
+                disp:removeSelf()
+                disp = nil
+            end
+
             composer.removeScene("scene1")
             print("hola "..contador)
             composer.gotoScene( "Final", "fade", 5)
@@ -131,69 +124,75 @@ local function cambiaImagen(event)
             --countTxt=nil
             
         end
+        
         if contador < 5 then
             count = 15
-            elseif contador < 8 then
-                count= 10
-            else
-                count= 5
-            end
+        elseif contador < 8 then
+            count= 10
+        else
+            count= 5
+        end
+        
         if contador<12 then
-        countTxt = display.newText( count, 1200,200, system.nativeFont, 300 )
-        countTxt:setFillColor( 1, 1, 1 )
-        
-        --anchorY=0
-        
-        local function repeatFade1 (event)
-            count = count - 1
-            if countTxt ~= nil then
-            countTxt.text = count
-            end
-            if count == -1 then
-                
-                if background ~= nil then
-            background:removeSelf()
-            background = nil
-        end
-        
-
-
-                bandera = false
-
-                background = display.newImage("images/Condiciones/Incorrect.png" )
-                background:translate( display.contentWidth/2, display.contentHeight/2 )
-                background.width=1440
-                background.height=2950
-                if disp ~=nil then
-            disp:removeSelf()
-            disp = nil
-        end
-
-            elseif count == -2  then
-                
-                if background ~= nil then
-                    background:removeSelf()
-                    background = nil
-                end
-                if countTxt ~= nil then
-                    countTxt:removeSelf()
-                    countTxt = nil
-                end
-
-                    composer.removeScene("scene1")
-                    composer.gotoScene( "scene3", "fade", 5)
-                    contador= 1
-
-                elseif count ==15 and bandera then
-                    background = display.newImage("images/Condiciones/Correct.png" )
-
-                    background:translate( display.contentWidth/2, display.contentHeight/2 )
-                end
-                
+            countTxt = display.newText( count, 1200,200, system.nativeFont, 300 )
+            countTxt:setFillColor( 1, 1, 1 )
             
-        end
+            --anchorY=0
+            
+            local function repeatFade1 (event)
+                
+                count = count - 1
+                
+                if countTxt ~= nil then
+                    countTxt.text = count
+                end
+                
+                if count == -1 then -- incorrecto
+                    
+                    if background ~= nil then
+                        background:removeSelf()
+                        background = nil
+                    end
+            
+
+
+                    bandera = false
+
+                    background = display.newImage("images/Condiciones/Incorrect.png" )
+                    background:translate( display.contentWidth/2, display.contentHeight/2 )
+
+                    if disp ~=nil then
+                        disp:removeSelf()
+                        disp = nil
+                    end
+
+                elseif count == -2  then
+
+                    local function listener( event )
+                        if background ~= nil then
+                            background:removeSelf()
+                            background = nil
+                        end
+                        if countTxt ~= nil then
+                            countTxt:removeSelf()
+                            countTxt = nil
+                        end
+
+                        composer.removeScene("scene1")
+                        composer.gotoScene( "scene3", "fade", 5)
+                            
+                        contador= 1
+                    end
+                      
+                    timer.performWithDelay( 2000, listener )
+
+                --[[elseif count ==15 and bandera then
+                    background = display.newImage("images/Condiciones/Correct.png" )
+                    background:translate( display.contentWidth/2, display.contentHeight/2 )]]
+                end  
+            end
         
-        timerID = timer.performWithDelay(1000, repeatFade1, 17 )
+            timerID = timer.performWithDelay(1000, repeatFade1, 17 )
         end
 
     
@@ -247,9 +246,9 @@ function scene:hide( event )
         -- e.g. stop timers, stop animation, unload sounds, etc.)
     elseif phase == "did" then
         -- Called when the scene is now off screen
-		if nextSceneButton then
-			nextSceneButton:removeEventListener( "touch", nextSceneButton )
-		end
+        if nextSceneButton then
+            nextSceneButton:removeEventListener( "touch", nextSceneButton )
+        end
     end 
 end
 
