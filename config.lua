@@ -9,7 +9,7 @@ application =
 	{
 		width = 1440,
 		height = 2960 , 
-		scale = "letterbox",
+		scale = "zoomStretch", --letterbox
 		fps = 60,
 		
 		--[[
