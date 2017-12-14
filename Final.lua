@@ -22,7 +22,7 @@ local function onPlayBtnRelease()
     
     -- go to level1.lua scene
 
-    composer.gotoScene( "scene1", "fade", 500)
+    composer.gotoScene( "scene1", "fade", 50)
 
     return true -- indicates successful touch
 end
@@ -46,29 +46,25 @@ function scene:create( event )
             countTxt:removeSelf()
             countTxt = nil
     end
-    background = display.newRect(0,0,1440,2960)
-    background.anchorX = 0
-    background.anchorY = 0
-    background.x = 0 + display.screenOriginX 
-    background.y = 0 + display.screenOriginY
-    background:setFillColor(0,0,0)
+    background = display.newImage( "images/Felicidades.png")
+    background.width=1440
+    background.height=2950
+    background:translate( display.contentWidth/2, display.contentHeight/2 )
+        
     
-    local mensaje = display.newText("   ¡Felicidades! \nHaz completado \n      el Juego",100,750,native.systemFont, 175 )
-    mensaje.anchorY =0
-    mensaje.anchorX=0
+    
             playBtn1 = widget.newButton{
-            label="Jugar",
             labelColor = { default={255}, over={128} },
             default="button.png",
             over="button-over.png",
             width=154, height=40,
             shape = "roundedRect",
-            fillColor = { default={0, 0.64313725490196, 0.83137254901961, 0.8 }, over={ 0.48235294117647, 0.64313725490196, 0.83137254901961, 1 } },
+            fillColor = { default={0.1, 0.1, 0.1, 0.01 }, over={ 0.1, 0.1, 0.1, 0.5 } },
             onRelease = onPlayBtnRelease   -- event listener function
             }
             playBtn1.x = display.contentCenterX
-            playBtn1.y = 2000
-            playBtn1.height = 300
+            playBtn1.y = 1345
+            playBtn1.height = 260
             playBtn1.width = 800
        
     

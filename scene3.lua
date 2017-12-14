@@ -104,7 +104,7 @@ function scene:show( event )
         end
     --r = display.newRect( display.contentCenterX, display.contentCenterY, 150, 150 )
     -- display a background image
-            background = display.newImage( "images/Instrucciones/nstrucciones.png")
+            background = display.newImage(sceneGroup, "images/Instrucciones/nstrucciones.png")
             background.width=1440
             background.height=2950
             background:translate( display.contentWidth/2, display.contentHeight/2 )
