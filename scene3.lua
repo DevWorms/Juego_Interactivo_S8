@@ -104,11 +104,11 @@ function scene:show( event )
         end
     --r = display.newRect( display.contentCenterX, display.contentCenterY, 150, 150 )
     -- display a background image
-            background = display.newImageRect( "images/Instrucciones/nstrucciones.png", display.actualContentWidth, display.actualContentHeight )
-            background.anchorX = 0
-            background.anchorY = 0
-            background.x = 0 + display.screenOriginX 
-            background.y = 0 + display.screenOriginY
+            background = display.newImage( "images/Instrucciones/nstrucciones.png")
+            background.width=1440
+            background.height=2950
+            background:translate( display.contentWidth/2, display.contentHeight/2 )
+        
             playBtn1 = widget.newButton{
             labelColor = { default={255}, over={128} },
             default="button.png",

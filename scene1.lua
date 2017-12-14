@@ -116,11 +116,11 @@ local function cambiaImagen(event)
             if background ~= nil then
             background:removeSelf()
             background = nil
-        end
-        if disp ~=nil then
+            end
+            if disp ~=nil then
             disp:removeSelf()
             disp = nil
-        end
+            end
         
 
             
@@ -171,16 +171,17 @@ local function cambiaImagen(event)
             elseif count == -2  then
                 
                 if background ~= nil then
-            background:removeSelf()
-            background = nil
-        end
-        if countTxt ~= nil then
-            countTxt:removeSelf()
-            countTxt = nil
-        end
+                    background:removeSelf()
+                    background = nil
+                end
+                if countTxt ~= nil then
+                    countTxt:removeSelf()
+                    countTxt = nil
+                end
 
-                composer.removeScene("scene1")
-                composer.gotoScene( "scene3", "fade", 500)
+                    composer.removeScene("scene1")
+                    composer.gotoScene( "scene3", "fade", 500)
+                    contador= 1
 
                 elseif count ==15 and bandera then
                     background = display.newImage("images/Condiciones/Correct.png" )
