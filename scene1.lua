@@ -162,7 +162,8 @@ local function cambiaImagen(event)
 
                 background = display.newImage("images/Condiciones/Incorrect.png" )
                 background:translate( display.contentWidth/2, display.contentHeight/2 )
-
+                background.width=1440
+                background.height=2950
                 if disp ~=nil then
             disp:removeSelf()
             disp = nil
@@ -180,11 +181,12 @@ local function cambiaImagen(event)
                 end
 
                     composer.removeScene("scene1")
-                    composer.gotoScene( "scene3", "fade", 500)
+                    composer.gotoScene( "scene3", "fade", 5)
                     contador= 1
 
                 elseif count ==15 and bandera then
                     background = display.newImage("images/Condiciones/Correct.png" )
+
                     background:translate( display.contentWidth/2, display.contentHeight/2 )
                 end
                 

@@ -44,6 +44,8 @@ local   function transicion()
             count = count - 1
             countTxt.text = count
             if count == 0 then
+                background:removeSelf()
+                background = nil
                 composer.gotoScene( "scene1", "fade", 5)
                 countTxt:removeSelf()
 
@@ -98,7 +100,8 @@ function scene:show( event )
     
     if phase == "will" then
         local contador= 0
-         if background ~= nil then
+        
+         if background ~=nil then
             background:removeSelf()
             background = nil
         end
@@ -108,7 +111,8 @@ function scene:show( event )
             background.width=1440
             background.height=2960
             background:translate( display.contentWidth/2, display.contentHeight/2 )
-        
+            background.width=1440
+            background.height=2950
             playBtn1 = widget.newButton{
             labelColor = { default={255}, over={128} },
             default="button.png",

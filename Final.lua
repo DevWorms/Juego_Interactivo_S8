@@ -22,7 +22,7 @@ local function onPlayBtnRelease()
     
     -- go to level1.lua scene
 
-    composer.gotoScene( "scene1", "fade", 50)
+    composer.gotoScene( "scene1", "fade", 500)
 
     return true -- indicates successful touch
 end
@@ -36,7 +36,7 @@ function scene:create( event )
     -- 
     -- INSERT code here to initialize the scene
     -- e.g. add display objects to 'sceneGroup', add touch listeners, etc.
-    local contador= 0
+    --local contador= 1
     --r = display.newRect( display.contentCenterX, display.contentCenterY, 150, 150 )
     -- display a background image
     if background ~= nil then
@@ -46,7 +46,7 @@ function scene:create( event )
             countTxt:removeSelf()
             countTxt = nil
     end
-    background = display.newImage( "images/Felicidades.png")
+    background = display.newImage(sceneGroup, "images/Felicidades.png")
     background.width=1440
     background.height=2950
     background:translate( display.contentWidth/2, display.contentHeight/2 )
