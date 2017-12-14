@@ -88,8 +88,6 @@ local function cambiaImagen(event)
         end
 
         if (timerID ~= nil) then
-            print("hi")
-
             timer.cancel( timerID )
         end
 
@@ -115,11 +113,15 @@ local function cambiaImagen(event)
         contador = contador+1
 
         if contador == 12 then
+            if background ~= nil then
             background:removeSelf()
             background = nil
-
+        end
+        if disp ~=nil then
             disp:removeSelf()
             disp = nil
+        end
+        
 
             
             composer.removeScene("scene1")
@@ -148,22 +150,35 @@ local function cambiaImagen(event)
             countTxt.text = count
             end
             if count == -1 then
-                background:removeSelf()
-                background = nil
+                
+                if background ~= nil then
+            background:removeSelf()
+            background = nil
+        end
+        
+
 
                 bandera = false
 
                 background = display.newImage("images/Condiciones/Incorrect.png" )
                 background:translate( display.contentWidth/2, display.contentHeight/2 )
 
-                disp:removeSelf()
-                disp = nil
+                if disp ~=nil then
+            disp:removeSelf()
+            disp = nil
+        end
 
             elseif count == -2  then
-                background:removeSelf()
-                background = nil
-                countTxt:removeSelf()
-                countTxt = nil
+                
+                if background ~= nil then
+            background:removeSelf()
+            background = nil
+        end
+        if countTxt ~= nil then
+            countTxt:removeSelf()
+            countTxt = nil
+        end
+
                 composer.removeScene("scene1")
                 composer.gotoScene( "scene3", "fade", 500)
 
@@ -221,8 +236,8 @@ function scene:hide( event )
     local phase = event.phase
 
     if event.phase == "will" then
-        countTxt:removeSelf()
-            countTxt = nil
+        --countTxt:removeSelf()
+        --    countTxt = nil
         -- Called when the scene is on screen and is about to move off screen
         --
         -- INSERT code here to pause the scene
@@ -238,7 +253,24 @@ end
 
 function scene:destroy( event )
     local sceneGroup = self.view
-    
+
+    if background ~= nil then
+            background:removeSelf()
+            background = nil
+        end
+        if disp ~=nil then
+            disp:removeSelf()
+            disp = nil
+        end
+        if countTxt ~= nil then
+            countTxt:removeSelf()
+            countTxt = nil
+        end
+
+        if (timerID ~= nil) then
+            timer.cancel( timerID )
+        end
+
 
     -- Called prior to the removal of scene's "view" (sceneGroup)
     -- 
