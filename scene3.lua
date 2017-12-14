@@ -106,7 +106,7 @@ function scene:show( event )
     -- display a background image
             background = display.newImage(sceneGroup, "images/Instrucciones/nstrucciones.png")
             background.width=1440
-            background.height=2950
+            background.height=2960
             background:translate( display.contentWidth/2, display.contentHeight/2 )
         
             playBtn1 = widget.newButton{
